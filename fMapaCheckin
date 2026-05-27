@@ -22,5 +22,5 @@
 			system ("pause");
 			continue;
 		}
-		tab[x][y] = 'O'; 
+		tab[a][b] = 'O'; 
 		}
