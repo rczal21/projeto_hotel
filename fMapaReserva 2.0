@@ -9,8 +9,15 @@ void fMapaReserva(int a, int b);
 		printf("\n===========================================\n");
 		printf("\tRESERVA DE APARTAMENTO\n");
 		printf("===========================================\n\n");
-		
+				
 		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+		scanf("%d", &x);
+		
+		printf("Digite o numero do apartamento (de 1 a 14): ");
+		scanf("%d", &y);
+		printf("\n\n");
+
+
 void fMapaReserva(int a, int b)
 {
 		
