@@ -2,10 +2,8 @@
 
 #include <stdio.h>
 #include <iostream>
-void fMapaReserva();
+void fMapaReserva(int a, int b);
 
-void fMapaReserva(int a, int b)
-{
 
 
 		printf("\n===========================================\n");
@@ -13,16 +11,18 @@ void fMapaReserva(int a, int b)
 		printf("===========================================\n\n");
 		
 		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+void fMapaReserva(int a, int b)
+{
 		
-		if (x == '\0') //retorna para o menu
+		if (a == '\0') //retorna para o menu
 			break;
 			
-			if (y<= 0 || x<=0 || x>14 || y>20)
+			if (b<= 0 || a<=0 || a>14 || b>20)
 		{
 			printf("Digite um apartamento valido.\n");
 			system ("pause");
 			continue;
 		}
-		tab[x][y] = 'R'; // marca a reserva
+		tab[a][b] = 'R'; // marca a reserva
 		
 }
