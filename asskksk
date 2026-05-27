@@ -1,0 +1,28 @@
+//BJPNR - Mapa de ocupação e reservas do hotel
+
+#include <stdio.h>
+#include <iostream>
+void fMapaReserva();
+
+void fMapaReserva(int a, int b)
+{
+
+
+		printf("\n===========================================\n");
+		printf("\tRESERVA DE APARTAMENTO\n");
+		printf("===========================================\n\n");
+		
+		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+		
+		if (x == '\0') //retorna para o menu
+			break;
+			
+			if (y<= 0 || x<=0 || x>14 || y>20)
+		{
+			printf("Digite um apartamento valido.\n");
+			system ("pause");
+			continue;
+		}
+		tab[x][y] = 'R'; // marca a reserva
+		
+}
