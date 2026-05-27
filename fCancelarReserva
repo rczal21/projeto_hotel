@@ -1,0 +1,65 @@
+//Cancelar reserva 
+
+#include <stdio.h>
+#include <iostream>
+
+
+void fTirar( int ap, int piso);
+void fMapaHotel();
+
+int main(){
+	int andar, apto;
+	
+	fMapaHotel();
+	printf("\nDigite o numero do andar e do apto que para cancelar a reserva (ENTER para voltar para o menu): ");
+	scanf("%d %d", &andar, &apto);
+	fTirar(andar, apto);
+}
+
+
+void fMapaHotel()
+{
+	
+	char tab[21][15]; 
+	int i, j, x, y; 
+	
+	for(i=20; i > 0; i--)
+	   for(j=1; j < 15; j++)
+	       tab[i][j] = '.'; 
+	
+	//apresenta matriz	
+    system("cls");   //para limpar a tela antes de apresnetar a matriz
+    printf("Apto ->\t\t");
+    
+    for(j = 1; j < 15; j++)
+    	
+        printf("%2d ", j); 
+    printf("\n\n");
+	   	   
+   for(i = 20; i > 0 ; i--) {
+   	    printf("Andar %2d\t", i); 
+   	    
+	   for( j=1; j < 15; j++) 
+	       printf("%2c ", tab[i][j]);
+	       printf("\n");
+	       //fim da matriz
+	}
+
+}
+
+		
+	
+
+void fTirar(int ap, int piso){
+	char tab[21][15];
+	
+	
+	if(tab[piso][ap] == '.')
+		printf("Este quarto nao esta sendo reservado ou ocupado!");
+	else
+	{	
+		tab[piso][ap] = '.'; 
+		printf("%c", tab[piso][ap]);
+	}
+	
+}
