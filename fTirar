@@ -1,0 +1,17 @@
+
+void fTirar( int ap, int piso);
+
+
+void fTirar(int ap, int piso){
+	char tab[21][15];
+	
+	
+	if(tab[piso][ap] == '.')
+		printf("Este quarto nao esta sendo reservado ou ocupado!");
+	else
+	{	
+		tab[piso][ap] = '.'; 
+		printf("%c", tab[piso][ap]);
+	}
+	
+}
