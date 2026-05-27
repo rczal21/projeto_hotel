@@ -2,17 +2,17 @@
 
 #include <stdio.h>
 #include <iostream>
+void fMapaHotel();
 
-int main(){
+void fMapaHotel()
+{
 	
 	char tab[21][15]; 
-	int i, j; 
+	int i, j, x, y; 
 	
 	for(i=20; i > 0; i--)
 	   for(j=1; j < 15; j++)
 	       tab[i][j] = '.'; 
-	
-	do{
 	
 	//apresenta matriz	
     system("cls");   //para limpar a tela antes de apresnetar a matriz
@@ -29,8 +29,14 @@ int main(){
 	   for( j=1; j < 15; j++) 
 	       printf("%2c ", tab[i][j]);
 	       printf("\n");
+	       //fim da matriz
 	}
-		
+
+}
+int main()
+{
+	fMapaHotel();
+}
 		
 	} while( i != '\0');
 	
