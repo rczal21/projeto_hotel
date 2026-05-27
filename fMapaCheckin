@@ -1,0 +1,26 @@
+  void fMapaCheckin(int a, int b);
+  
+
+		printf("\n===========================================\n");
+		printf("\tCheckIn do Apartamento\n");
+		printf("===========================================\n\n");
+		
+		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+		scanf("%d", &x);
+		
+		printf("Digite o numero do apartamento (de 1 a 14): ");
+		scanf("%d", &y);
+		printf("\n\n");
+
+ void fMapaCheckin(int a, int b){
+		if (a == '\0') //retorna para o menu
+			break;
+			
+			if (b<= 0 || a<=0 || a>14 || b>20)
+		{
+			printf("Digite um apartamento valido.\n");
+			system ("pause");
+			continue;
+		}
+		tab[x][y] = 'O'; 
+		}
