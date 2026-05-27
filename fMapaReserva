@@ -2,35 +2,12 @@
 
 #include <stdio.h>
 #include <iostream>
+void fMapaHotel();
 
-int main(){
-	
-	char tab[21][15]; 
-	int i, j, x, y; 
-	
-	for(i=20; i > 0; i--)
-	   for(j=1; j < 15; j++)
-	       tab[i][j] = '.'; 
-	
-	do{
-	
-	//apresenta matriz	
-    system("cls");   //para limpar a tela antes de apresnetar a matriz
-    printf("Apto ->\t\t");
-    
-    for(j = 1; j < 15; j++)
-    	
-        printf("%2d ", j); 
-    printf("\n\n");
-	   	   
-   for(i = 20; i > 0 ; i--) {
-   	    printf("Andar %2d\t", i); 
-   	    
-	   for( j=1; j < 15; j++) 
-	       printf("%2c ", tab[i][j]);
-	       printf("\n");
-	       //fim da matriz
-	}
+void fMapaHotel()
+{
+
+
 		printf("\n===========================================\n");
 		printf("\tRESERVA DE APARTAMENTO\n");
 		printf("===========================================\n\n");
@@ -53,6 +30,4 @@ int main(){
 		}
 		tab[x][y] = 'R'; // marca a reserva
 		
-	} while( x != '\0');
-	
 }
