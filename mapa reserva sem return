@@ -1,0 +1,58 @@
+//BJPNR - Mapa de ocupação e reservas do hotel
+
+#include <stdio.h>
+#include <iostream>
+
+int main(){
+	
+	char tab[21][15]; 
+	int i, j, x, y; 
+	
+	for(i=20; i > 0; i--)
+	   for(j=1; j < 15; j++)
+	       tab[i][j] = '.'; 
+	
+	do{
+	
+	//apresenta matriz	
+    system("cls");   //para limpar a tela antes de apresnetar a matriz
+    printf("Apto ->\t\t");
+    
+    for(j = 1; j < 15; j++)
+    	
+        printf("%2d ", j); 
+    printf("\n\n");
+	   	   
+   for(i = 20; i > 0 ; i--) {
+   	    printf("Andar %2d\t", i); 
+   	    
+	   for( j=1; j < 15; j++) 
+	       printf("%2c ", tab[i][j]);
+	       printf("\n");
+	       //fim da matriz
+	}
+		printf("\n===========================================\n");
+		printf("\tRESERVA DE APARTAMENTO\n");
+		printf("===========================================\n\n");
+		
+		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+		scanf("%d", &x);
+		
+		printf("Digite o numero do apartamento (de 1 a 14): ");
+		scanf("%d", &y);
+		printf("\n\n");
+		
+		if (x == '\0') //retorna para o menu
+			break;
+			
+			if (y<= 0 || x<=0 || x>14 || y>20)
+		{
+			printf("Digite um apartamento valido.\n");
+			system ("pause");
+			continue;
+		}
+		tab[x][y] = 'R'; // marca a reserva
+		
+	} while( x != '\0');
+	
+}
