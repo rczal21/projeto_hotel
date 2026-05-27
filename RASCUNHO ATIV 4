@@ -1,0 +1,120 @@
+//BJPNR - Ativ4
+
+
+#include <stdio.h>
+#include <iostream>
+
+
+void fMapaHotel();
+
+void fMapaHotel()
+{
+	
+	char tab[21][15]; 
+	int i, j, x, y; 
+	
+	for(i=20; i > 0; i--)
+	   for(j=1; j < 15; j++)
+	       tab[i][j] = '.'; 
+	
+	//apresenta matriz	
+    system("cls");   //para limpar a tela antes de apresnetar a matriz
+    printf("Apto ->\t\t");
+    
+    for(j = 1; j < 15; j++)
+    	
+        printf("%2d ", j); 
+    printf("\n\n");
+	   	   
+   for(i = 20; i > 0 ; i--) {
+   	    printf("Andar %2d\t", i); 
+   	    
+	   for( j=1; j < 15; j++) 
+	       printf("%2c ", tab[i][j]);
+	       printf("\n");
+	       //fim da matriz
+	}
+
+
+  void fMapaCheckin(int a, int b);
+  
+
+		printf("\n===========================================\n");
+		printf("\tCheckIn do Apartamento\n");
+		printf("===========================================\n\n");
+		
+		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+		scanf("%d", &x);
+		
+		printf("Digite o numero do apartamento (de 1 a 14): ");
+		scanf("%d", &y);
+		printf("\n\n");
+
+ void fMapaCheckin(int a, int b){
+		if (a == '\0') //retorna para o menu
+			break;
+			
+			if (b<= 0 || a<=0 || a>14 || b>20)
+		{
+			printf("Digite um apartamento valido.\n");
+			system ("pause");
+			continue;
+		}
+		tab[a][b] = 'O'; 
+		}
+}
+
+void fTirar( int ap, int piso); 
+
+void fMapaReserva(int a, int b);
+
+
+
+int main()
+{
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+		
+	void fTirar(int ap, int piso){
+	char tab[21][15];
+	
+	
+	if(tab[piso][ap] == '.')
+		printf("Este quarto nao esta ocupado!");
+	else
+	{	
+		tab[piso][ap] = '.'; 
+		printf("%c", tab[piso][ap]);
+	}
+	
+}
+
+void fMapaReserva(int a, int b);
+
+
+
+		printf("\n===========================================\n");
+		printf("\tRESERVA DE APARTAMENTO\n");
+		printf("===========================================\n\n");
+				
+		printf("Digite o numero do andar (de 1 a 20, enter para voltar): ");
+		scanf("%d", &x);
+		
+		printf("Digite o numero do apartamento (de 1 a 14): ");
+		scanf("%d", &y);
+		printf("\n\n");
+
