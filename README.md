@@ -1,2 +1,2 @@
 # projeto_hotel
-Projeto em C++ da aula de LIC 
+Projeto final da aula de LIC 
