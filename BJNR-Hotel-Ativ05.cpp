@@ -1,14 +1,15 @@
 //BJNR - Ativ05
-//Bruna Samy Freming Quispilaya 
-//João Pedro Freitas Vilar
-//Nathalia Pedraça Pinho
-//Rafaella Castro Zandoná Alves de Lima
+//Bruna Samy Freming Quispilaya
+//Joao Pedro Freitas Vilar
+//Nathalia Pedraca Pinho
+//Rafaella Castro Zandona Alves de Lima
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 
+// Função cadastro do hospede, usada no check-in e na reserva, para preencher os dados do hospede
 typedef struct cadastro {
     char cpf[15];
     char nome[60];
@@ -16,18 +17,18 @@ typedef struct cadastro {
     char telefone[20];
     char email[50];
     char cafe_manha; // 'S' ou 'N'
+    int  diaria;     
 } tipohospedes;
 
 char tab[21][15];
 tipohospedes hospedes[21][15];
-int diaria;
 
 void fInicializar();
 void fMapaHotel();
 void fCheckOut(int andar, int ap);
 void fCReserva(int andar, int ap);
-void fMapaReserva(int andar, int ap);
-void fMapaCheckin(int andar, int ap);
+void fMapaReserva(int andar, int ap, int diaria);
+void fMapaCheckin(int andar, int ap, int diaria);
 void fTaxaOcupacao();
 void fCadastrarHospede(int andar, int ap);
 void fVerApartamento(int andar, int ap);
@@ -36,6 +37,7 @@ int main()
 {
     int x, y;
     int opcao;
+    int diaria; 
 
     fInicializar();
 
@@ -66,7 +68,7 @@ int main()
                 printf("Diarias: ");
                 scanf("%d", &diaria);
                 while (getchar() != '\n');
-                fMapaCheckin(x, y);
+                fMapaCheckin(x, y, diaria);
                 break;
 
             case 2:
@@ -90,7 +92,7 @@ int main()
                 scanf("%d", &y);
                 printf("Diarias: ");
                 scanf("%d", &diaria);
-                fMapaReserva(x, y);
+                fMapaReserva(x, y, diaria); 
                 break;
 
             case 4:
@@ -136,7 +138,7 @@ int main()
     return 0;
 }
 
-void fInicializar()
+void fInicializar()  //Matriz do mapa do hotel 
 {
     int i, j;
     for (i = 1; i <= 20; i++)
@@ -144,7 +146,7 @@ void fInicializar()
             tab[i][j] = '.';
 }
 
-void fMapaHotel()
+void fMapaHotel()  //Mapa do hotel
 {
     int i, j;
     system("cls");
@@ -160,16 +162,18 @@ void fMapaHotel()
     }
 }
 
-static int fValidar(int andar, int ap)
+
+static int fValidar(int andar, int ap)  //Verfica se o apto realmente existe
 {
     if (andar < 1 || andar > 20 || ap < 1 || ap > 14) {
         printf("\nApartamento invalido. Andar: 1-20, Apto: 1-14.\n");
+        system("pause"); 
         return 0;
     }
     return 1;
 }
 
-void fMapaCheckin(int andar, int ap)
+void fMapaCheckin(int andar, int ap, int diaria)  //Realização do Check in 
 {
     if (!fValidar(andar, ap)) return;
 
@@ -180,24 +184,40 @@ void fMapaCheckin(int andar, int ap)
     }
 
     if (tab[andar][ap] == 'R') {
-        // Hóspede já cadastrado na reserva: reutiliza os dados sem perguntar de novo
-        printf("\nApartamento estava RESERVADO. Realizando Check-in para o hospede:\n");
-        printf("Nome:          %s\n", hospedes[andar][ap].nome);
-        printf("CPF:           %s\n", hospedes[andar][ap].cpf);
-        printf("Cafe da manha: %s\n", hospedes[andar][ap].cafe_manha == 'S' ? "Incluso" : "Nao incluso");
+        //Confirma se e o mesmo hospede que fez a reserva
+        printf("\nApartamento RESERVADO. Hospede cadastrado na reserva:\n");
+        printf("Nome: %s\n", hospedes[andar][ap].nome);
+        printf("\nConfirme o CPF do hospede para realizar o check-in: ");
+
+        char cpf_conf[15];
+        fgets(cpf_conf, sizeof(cpf_conf), stdin);
+        cpf_conf[strcspn(cpf_conf, "\n")] = '\0';
+
+        if (strcmp(cpf_conf, hospedes[andar][ap].cpf) != 0) {
+            printf("\nCPF nao confere com o hospede da reserva. Check-in nao realizado.\n");
+            system("pause");
+            return;
+        }
+
+        //CPF confere: realiza o check-in
+        hospedes[andar][ap].diaria = diaria; 
         tab[andar][ap] = 'O';
-        printf("\nCheck-in realizado: Andar %d, Apto %d.\n", andar, ap);
+        printf("\nCheck-in COM reserva previa realizado: Andar %d, Apto %d.\n", andar, ap);
+        printf("Cafe da manha: %s\n",
+               hospedes[andar][ap].cafe_manha == 'S' ? "Incluso" : "Nao incluso");
+
     } else {
-        // Apartamento livre: cadastra hóspede normalmente (inclui pergunta do café)
+        //Apartamento livre: cadastra hospede normalmente
+        hospedes[andar][ap].diaria = diaria; 
         tab[andar][ap] = 'O';
-        printf("\nCheck-in realizado: Andar %d, Apto %d.\n", andar, ap);
+        printf("\nCheck-in SEM reserva previa realizado: Andar %d, Apto %d.\n", andar, ap);
         fCadastrarHospede(andar, ap);
     }
 
     system("pause");
 }
 
-void fMapaReserva(int andar, int ap)
+void fMapaReserva(int andar, int ap, int diaria)  //Verifica se há reserva ou não
 {
     if (!fValidar(andar, ap)) return;
 
@@ -206,6 +226,7 @@ void fMapaReserva(int andar, int ap)
         system("pause");
         return;
     }
+    hospedes[andar][ap].diaria = diaria; 
     tab[andar][ap] = 'R';
     printf("\nReserva realizada: Andar %d, Apto %d.\n", andar, ap);
     while (getchar() != '\n');
@@ -213,7 +234,7 @@ void fMapaReserva(int andar, int ap)
     system("pause");
 }
 
-void fCheckOut(int andar, int ap)
+void fCheckOut(int andar, int ap)  //Realização do Check out
 {
     if (!fValidar(andar, ap)) return;
 
@@ -231,7 +252,7 @@ void fCheckOut(int andar, int ap)
     system("pause");
 }
 
-void fCReserva(int andar, int ap)
+void fCReserva(int andar, int ap)  //Cancelamento de reserva
 {
     if (!fValidar(andar, ap)) return;
 
@@ -249,7 +270,7 @@ void fCReserva(int andar, int ap)
     system("pause");
 }
 
-void fTaxaOcupacao()
+void fTaxaOcupacao()  //Calcula a taxa de ocupação do hotel
 {
     int i, j;
     int total = 20 * 14;
@@ -262,8 +283,8 @@ void fTaxaOcupacao()
         }
 
     printf("Total de apartamentos : %d\n", total);
-    printf("Ocupados  (O)         : %d (%.1f%%)\n", ocupados, (double)ocupados / total * 100.0);
-    printf("Reservados (R)        : %d (%.1f%%)\n", reservados, (double)reservados / total * 100.0);
+    printf("Ocupados  (O)         : %d (%.1f%%)\n", ocupados,  (double)ocupados  / total * 100.0);
+    printf("Reservados (R)        : %d (%.1f%%)\n", reservados,(double)reservados / total * 100.0);
     printf("Livres    (.)         : %d (%.1f%%)\n",
            total - ocupados - reservados,
            (double)(total - ocupados - reservados) / total * 100.0);
@@ -271,7 +292,7 @@ void fTaxaOcupacao()
     system("pause");
 }
 
-void fCadastrarHospede(int andar, int ap)
+void fCadastrarHospede(int andar, int ap)  //Cadastro do hóspede
 {
     printf("\n--- Cadastro do Hospede ---\n");
 
@@ -325,7 +346,6 @@ void fCadastrarHospede(int andar, int ap)
             printf("E-mail invalido! Digite um e-mail valido (ex: nome@email.com).\n");
     } while (strlen(hospedes[andar][ap].email) < 6 || strchr(hospedes[andar][ap].email, '@') == NULL);
 
-    // Pergunta sobre café da manhã
     char opcao_cafe;
     do {
         printf("Cafe da manha incluso? (S/N): ");
@@ -342,7 +362,7 @@ void fCadastrarHospede(int andar, int ap)
     printf("\nHospede cadastrado com sucesso!\n");
 }
 
-void fVerApartamento(int andar, int ap)
+void fVerApartamento(int andar, int ap)  //Verifica o status do apto
 {
     if (!fValidar(andar, ap)) return;
 
@@ -357,7 +377,6 @@ void fVerApartamento(int andar, int ap)
         return;
     }
 
-    // Exibe dados para apartamento ocupado ou reservado
     char status_str[12];
     if (tab[andar][ap] == 'R') strcpy(status_str, "RESERVADO");
     else strcpy(status_str, "OCUPADO");
@@ -369,13 +388,13 @@ void fVerApartamento(int andar, int ap)
     printf("Endereco:      %s\n", hospedes[andar][ap].endereco);
     printf("Telefone:      %s\n", hospedes[andar][ap].telefone);
     printf("E-mail:        %s\n", hospedes[andar][ap].email);
-    printf("Diarias:       %d\n", diaria);
-    printf("Cafe da manha: %s\n", hospedes[andar][ap].cafe_manha == 'S' ? "Incluso" : "Nao incluso");
+    printf("Diarias:       %d\n", hospedes[andar][ap].diaria);
+    printf("Cafe da manha: %s\n",
+           hospedes[andar][ap].cafe_manha == 'S' ? "Incluso" : "Nao incluso");
 
-    // Opção de alterar o café da manhã
     char alterar;
     printf("\nDeseja alterar a opcao de cafe da manha? (S/N): ");
-    while (getchar() != '\n'); // limpa buffer do scanf anterior
+    while (getchar() != '\n');
     alterar = getchar();
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
